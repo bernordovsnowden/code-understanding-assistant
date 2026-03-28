@@ -20,3 +20,6 @@ AI / Data Pipeline Engineer transitioning from enterprise government analytics i
 M.S. Information Systems Technology – George Washington University  
 Graduate Certificate in Artificial Intelligence  
 (CNN, RNN, LSTM, NLP, Machine Learning)
+
+## Connect
+- LinkedIn: https://www.linkedin.com/in/YOUR-PROFILE
