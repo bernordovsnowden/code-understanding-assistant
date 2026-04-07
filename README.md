@@ -14,3 +14,7 @@ A Python + Streamlit project that analyzes Python code using AST parsing and gen
 ```bash
 pip install -r requirements.txt
 python src/main.py
+
+## 🖼️ Demo
+
+![App Screenshot](screenshot.png)
