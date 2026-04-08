@@ -49,9 +49,9 @@ if uploaded_file is not None:
         if st.button("Explain Code in Plain English"):
             if client is None:
                 st.error("OpenAI API key is missing. Add OPENAI_API_KEY in Streamlit Secrets.")
-        else:
-            with st.spinner("Analyzing code with AI..."):
-                prompt = f"""
+            else:
+                with st.spinner("Analyzing code with AI..."):
+                    prompt = f"""
 Explain the following Python code in plain English for a {audience.lower()} audience.
 
 Code:
@@ -63,13 +63,14 @@ Provide:
 3. Key components
 4. Any issues or improvements
 """
-            response = client.responses.create(
-                model="gpt-4.1-mini",
-                input=prompt
-            )
 
-            st.subheader("Explanation")
-            st.write(response.output_text)
+                    response = client.responses.create(
+                        model="gpt-4.1-mini",
+                        input=prompt
+                    )
+
+                    st.subheader("Explanation")
+                    st.write(response.output_text)
 
     except Exception as e:
         st.error(f"App error: {e}")
