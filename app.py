@@ -5,7 +5,8 @@ st.set_page_config(page_title="Code Understanding Assistant", layout="wide")
 st.title("Code Understanding Assistant")
 st.write("Upload a Python file and get a quick structural summary.")
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+api_key = st.secrets.get("OPENAI_API_KEY", None)
+client = OpenAI(api_key=api_key) if api_key else None
 
 try:
     from src.parser import parse_code, extract_structure
@@ -46,6 +47,9 @@ if uploaded_file is not None:
         )
 
         if st.button("Explain Code in Plain English"):
+            if client is None:
+                st.error("OpenAI API key is missing. Add OPENAI_API_KEY in Streamlit Secrets.")
+        else:
             with st.spinner("Analyzing code with AI..."):
                 prompt = f"""
 Explain the following Python code in plain English for a {audience.lower()} audience.
@@ -59,14 +63,13 @@ Provide:
 3. Key components
 4. Any issues or improvements
 """
+            response = client.responses.create(
+                model="gpt-4.1-mini",
+                input=prompt
+            )
 
-                response = client.responses.create(
-                    model="gpt-4.1-mini",
-                    input=prompt
-                )
-
-                st.subheader("Explanation")
-                st.write(response.output_text)
+            st.subheader("Explanation")
+            st.write(response.output_text)
 
     except Exception as e:
         st.error(f"App error: {e}")
